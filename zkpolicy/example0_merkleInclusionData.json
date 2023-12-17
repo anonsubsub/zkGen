@@ -1,0 +1,22 @@
+{
+	"name": "zkPolicy_ageCommitCheck",
+	"relations":[
+		{
+			"private_argument": {
+				"name": "age",
+				"type": "string",
+				"protection": {
+					"algorithm": "commitments:merkle_mimc",
+					"parameter": "message"
+				}
+			},
+			"public_argument": {
+				"name": "threshold",
+				"type": "integer"
+			}
+		}
+	],
+	"constraints": [
+		"0:age-gt-0:threshold"
+	]
+}

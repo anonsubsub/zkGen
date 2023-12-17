@@ -1,0 +1,3 @@
+[submodule "gnark_lib"]
+	path = gnark_lib
+	url = git@github.com:jplaui/gnark_lib.git

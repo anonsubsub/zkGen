@@ -1,0 +1,274 @@
+{
+    "commitments": {
+		"mimc": {
+			"commit_string": {
+                "scope": "public",
+				"type": "string",
+                "size": 32
+			},
+			"witness": { // xored with message, if no usage: use array of ones, same size as message
+                "scope": "private",
+                "type": "string", // string input fed as hex bytes
+                "size": -1 // -1 indicates unbound array
+			},
+            "message": {
+                "scope": "private",
+                "type": "string",
+                "size": -1
+            }
+		},
+		"sha256": {
+            "commit_string": {
+				"type": "p-string",
+                "size": 32
+			},
+			"witness": { 
+                "type": "s-string",
+                "size": -1 
+			},
+            "message": {
+                "type": "s-string",
+                "size": -1
+            }
+		},
+		"merkle_mimc": {
+            "commit_string": {
+				"type": "p-string",
+                "size": 32
+			},
+			"witness": { // merkle paths for opened messages
+                "type": "s-list:string",
+                "size": -1
+			},
+            "message": { // messages that are opened with witness path towards root
+                "type": "s-list:string",
+                "size": -1
+            }
+		}
+	},
+	"signatures": {
+		"ecdsa": {
+            "signature": {
+                "type": "s-string",
+                "size": 64
+            },
+            "message": {
+                "type": "s-string",
+                "size": -1
+            },
+            "publicKey": {
+                "type": "p-string",
+                "size": 65
+            }
+		}
+	},
+	"encryption": {
+		"aes128": {
+            "plaintext": {
+                "type": "s-string",
+                "size": 16
+            },
+            "key": {
+                "type": "s-string",
+                "size": 16
+            },
+            "ciphertext": {
+                "type": "p-string",
+                "size": 16
+            }
+		},
+        "gcm_aes128": {
+            "plaintext": {
+                "type": "s-string",
+                "size": -1
+            },
+            "key": {
+                "type": "s-string",
+                "size": 16
+            },
+            "cipherchunks": {
+                "type": "p-string",
+                "size": -1
+            },
+            "iv": {
+                "type": "p-string",
+                "size": 12
+            },
+            "chunkIndex": {
+                "type": "p-string"
+            }
+		},
+        "otp_xor": {
+            "plaintext": {
+                "type": "s-string",
+                "size": -1
+            },
+            "pad": {
+                "type": "s-string",
+                "size": -1
+            },
+            "ciphertext": {
+                "type": "p-string",
+                "size": -1
+            }
+		}
+	},
+	"secure_channels": {
+		"sessionKey_TLS13AES128GCMSHA256": { // policy compares public TkCommit against derived committed key
+            "DHSin": {
+                "type": "s-string",
+                "size": 64
+            },
+            "IntermediateHashHSopad": {
+                "type": "p-string",
+                "size": 32
+            },
+            "MSin": {
+                "type": "p-string",
+                "size": 32
+            },
+            "XATSin": {
+                "type": "p-string",
+                "size": 32
+            },
+            "TkXAPPin": {
+                "type": "p-string",
+                "size": 32
+            },
+            "IvCounter": {
+                "type": "p-string",
+                "size": 16
+            },
+            "Zeros": {
+                "type": "p-string",
+                "size": 16
+            },
+            "ECB0": {
+                "type": "p-string",
+                "size": 16
+            },
+            "ECBK": {
+                "type": "p-string",
+                "size": 16
+            },
+            "key": {
+                "type": "s-string",
+                "size": 16
+            }
+		},
+        "openRecord_TLS13AES128GCMSHA256": { // policy compares public threshold against derived string   
+            "key": {
+                "type": "s-string",
+                "size": 16
+            },
+            "plaintext": {
+                "type": "s-string",
+                "size": -1
+            },
+            "iv": {
+                "type": "p-string",
+                "size": 12
+            },
+            "cipherchunks": {
+                "type": "p-string",
+                "size": -1
+            },
+            "chunkIndex": {
+                "type": "p-integer"
+            },
+            "substring": {
+                "type": "p-string",
+                "size": -1
+            },
+            "substringStart": {
+                "type": "p-integer"
+            },
+            "substringEnd": {
+                "type": "p-integer"
+            },
+            "valueStart": {
+                "type": "p-integer"
+            },
+            "valueEnd": {
+                "type": "p-integer"
+            },
+            "value": {
+                "type": "s-string",
+                "size": -1
+            }
+        },
+        "openSession_TLS13AES128GCMSHA256": { // entire opening circuit compares derived data against threshold set in policy string
+            "DHSin": {
+                "type": "s-string",
+                "size": 64
+            },
+            "plaintext": {
+                "type": "s-string",
+                "size": -1
+            },
+            "IntermediateHashHSopad": {
+                "type": "p-string",
+                "size": 32
+            },
+            "MSin": {
+                "type": "p-string",
+                "size": 32
+            },
+            "XATSin": {
+                "type": "p-string",
+                "size": 32
+            },
+            "TkXAPPin": {
+                "type": "p-string",
+                "size": 32
+            },
+            "IvCounter": {
+                "type": "p-string",
+                "size": 16
+            },
+            "Zeros": {
+                "type": "p-string",
+                "size": 16
+            },
+            "ECB0": {
+                "type": "p-string",
+                "size": 16
+            },
+            "ECBK": {
+                "type": "p-string",
+                "size": 16
+            },
+            "iv": {
+                "type": "p-string",
+                "size": 12
+            },
+            "cipherchunks": {
+                "type": "p-string",
+                "size": -1
+            },
+            "chunkIndex": {
+                "type": "p-integer"
+            },
+            "substring": {
+                "type": "p-string",
+                "size": -1
+            },
+            "substringStart": {
+                "type": "p-integer"
+            },
+            "substringEnd": {
+                "type": "p-integer"
+            },
+            "valueStart": {
+                "type": "p-integer"
+            },
+            "valueEnd": {
+                "type": "p-integer"
+            },
+            "value": {
+                "type": "s-string",
+                "size": -1
+            }
+        }
+	}
+}

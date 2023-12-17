@@ -1,0 +1,22 @@
+{
+	"name": "AgeCommitCheck",
+	"relations":[
+		{
+			"private_argument": {
+				"name": "Age",
+				"type": "string",
+				"protection": {
+					"algorithm": "commitments:mimc",
+					"parameter": "message"
+				}
+			},
+			"public_argument": {
+				"name": "Threshold",
+				"type": "integer"
+			}
+		}
+	],
+	"constraints": [
+		"0:age-gt-0:threshold"
+	]
+}

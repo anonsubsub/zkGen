@@ -1,0 +1,23 @@
+{
+	"name": "zkPolicy_tls13openSessionCommit",
+	"relations":[
+        {
+			"private_argument": {
+				"name": "value",
+				"type": "string",
+                "size": 16,
+				"protection": {
+					"algorithm": "secure_channels:openSession_TLS13AES128GCMSHA256",
+					"parameter": "value"
+				}
+			},
+            "public_argument": {
+				"name": "threshold",
+                "type": "p-integer"
+            }
+		}
+	],
+    "constraints": [
+        "0:value->-0:threshold"
+	]
+}
